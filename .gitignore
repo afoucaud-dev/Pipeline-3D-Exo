@@ -1,0 +1,8 @@
+vs/.vs
+vs/x64
+vs/cpu-core/x64
+vs/cpu-render/x64
+vs/cpu-engine/x64
+vs/demo/x64
+vs/template/x64
+cpulib
