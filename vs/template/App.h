@@ -8,6 +8,10 @@ public:
 
 	static App& GetInstance() { return *s_pApp; }
 
+	int GenerateRandomNumber(int min, int max);
+
+	void SpawnLoot();
+
 	void OnStart();
 	void OnUpdate();
 	void OnExit();
@@ -25,9 +29,13 @@ private:
 	cpu_material m_materialHero;
 	cpu_entity* m_pHero;
 
-	/*cpu_mesh m_meshL;
-	cpu_material m_materialHero;
-	cpu_entity* m_pHero;*/
+	cpu_mesh m_meshLoot;
+	cpu_material m_materialLoot;
+	std::vector<cpu_entity*> m_pLoot;
+	float m_SpeedLoot;
 
-	float angle;
+	float m_timerLoot;
+	float m_timerLootMax;
+	float m_angleHero;
+	float m_angleLastLoot;
 };
