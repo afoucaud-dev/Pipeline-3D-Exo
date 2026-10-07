@@ -32,6 +32,9 @@ public:
 	bool IsActionReleased(int index = 0);
 
 	bool IsBackPressed();
+	bool IsQuitPressed();
+	bool IsRestartPressed();
+	bool IsSpacePressed();
 
 	bool IsLeft();
 	bool IsLeftPressed();

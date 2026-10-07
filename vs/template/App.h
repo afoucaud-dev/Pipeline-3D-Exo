@@ -8,7 +8,11 @@ public:
 
 	static App& GetInstance() { return *s_pApp; }
 
+	void ClearVector();
+
 	int GenerateRandomNumber(int min, int max);
+
+	bool Collision(cpu_entity* S1, cpu_entity* S2);
 
 	void SpawnLoot();
 
@@ -25,6 +29,9 @@ private:
 	cpu_material m_materialPlateform;
 	cpu_entity* m_pPlateform;
 
+	cpu_font m_font;
+	cpu_font m_fontB;
+	cpu_font m_fontL;
 	cpu_mesh m_meshHero;
 	cpu_material m_materialHero;
 	cpu_entity* m_pHero;
@@ -38,4 +45,10 @@ private:
 	float m_timerLootMax;
 	float m_angleHero;
 	float m_angleLastLoot;
+
+	bool m_loose;
+	bool m_pause;
+	int m_hp;
+	int m_score;
+	std::string toto;
 };
