@@ -40,7 +40,7 @@ bool App::Collision(cpu_entity* S1, cpu_entity* S2)
 	XMFLOAT3 S2pos = S2->transform.pos;
 
 	int d2 = (S1pos.x - S2pos.x) * (S1pos.x - S2pos.x) + (S1pos.y - S2pos.y) * (S1pos.y - S2pos.y) + (S1pos.z - S2pos.z) * (S1pos.z - S2pos.z);
-	if (d2 > (S1->pMesh->radius / 2 + S2->pMesh->radius / 2) * (S1->pMesh->radius / 2 + S2->pMesh->radius / 2))
+	if (d2 > (S1->pMesh->radius / 1.75 + S2->pMesh->radius / 1.75) * (S1->pMesh->radius / 1.75 + S2->pMesh->radius / 1.75))
 		return false;
 	else
 		return true;
