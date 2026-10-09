@@ -10,7 +10,7 @@ public:
 
 	void ClearVector();
 
-	int GenerateRandomNumber(int min, int max);
+	float GenerateRandomNumber(float min, float max);
 
 	bool Collision(cpu_entity* S1, cpu_entity* S2);
 

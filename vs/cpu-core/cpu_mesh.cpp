@@ -244,6 +244,118 @@ void cpu_mesh::CreateCube(float halfSize, XMFLOAT3 color)
 	Optimize();
 }
 
+void cpu_mesh::CreateRamp(float width, float height, float depth, XMFLOAT3 color)
+{
+	Clear();
+	const float x = width;
+	const float y = height;
+	const float z = depth;
+	XMFLOAT3 p0 = { -x, -y, -z };
+	XMFLOAT3 p1 = { x, -y, -z };
+	XMFLOAT3 p2 = { -x,  y, -z };
+	XMFLOAT3 p3 = { -x, -y,  z };
+	XMFLOAT3 p4 = { x, -y,  z };
+	XMFLOAT3 p5 = { -x,  y,  z };
+	XMFLOAT2 tl = { 0.0f, 0.0f };					// top-left
+	XMFLOAT2 tr = { 1.0f, 0.0f };					// top-right
+	XMFLOAT2 br = { 1.0f, 1.0f };					// bottom-right
+	XMFLOAT2 bl = { 0.0f, 1.0f };					// bottom-left
+
+	XMFLOAT2 t1 = { 0.0f, 0.0f };
+	XMFLOAT2 t2 = { 1.0f, 0.0f };
+	XMFLOAT2 t3 = { 0.0f, 1.0f };
+	vertices.reserve(vertices.size() + 36);
+
+	AddTriangle(p0, p1, p2, t1, t2, t3, color);	// -Z (back)
+	AddTriangle(p3, p5, p4, t1, t2, t3, color);	// +Z (front)
+	AddFace(p1, p4, p5, p2, bl, br, tr, tl, color);	// +X (droite)
+	AddFace(p3, p0, p2, p5, bl, br, tr, tl, color);	// -X (gauche)
+	AddFace(p3, p4, p1, p0, bl, br, tr, tl, color);	// -Y (bas)
+	Optimize();
+}
+
+void cpu_mesh::CreateWingR(float width, float height, float depth, XMFLOAT3 color)
+{
+	Clear();
+	const float x = width;
+	const float y = height;
+	const float z = depth;
+	XMFLOAT3 p0 = { -x, -y, -z };
+	XMFLOAT3 p1 = { x, -y, -z };
+	XMFLOAT3 p2 = { -x,  y, -z };
+	XMFLOAT3 p3 = { x, -y,  z };
+	XMFLOAT2 tl = { 0.0f, 0.0f };					// top-left
+	XMFLOAT2 tr = { 1.0f, 0.0f };					// top-right
+	XMFLOAT2 br = { 1.0f, 1.0f };					// bottom-right
+	XMFLOAT2 bl = { 0.0f, 1.0f };					// bottom-left
+
+	XMFLOAT2 t1 = { 0.0f, 0.0f };
+	XMFLOAT2 t2 = { 1.0f, 0.0f };
+	XMFLOAT2 t3 = { 0.0f, 1.0f };
+	vertices.reserve(vertices.size() + 36);
+
+	AddTriangle(p0, p1, p2, t1, t2, t3, color);	// -Z (back)
+	AddTriangle(p1, p3, p2, t2, t2, t3, color);
+	AddTriangle(p3, p0, p2, t2, t1, t3, color);
+	AddTriangle(p0, p3, p1, t1, t2, t2, color);
+	Optimize();
+}
+
+void cpu_mesh::CreateWingL(float width, float height, float depth, XMFLOAT3 color)
+{
+	Clear();
+	const float x = width;
+	const float y = height;
+	const float z = depth;
+	XMFLOAT3 p0 = { -x, -y, z };
+	XMFLOAT3 p1 = { x, -y, z };
+	XMFLOAT3 p2 = { -x,  y, z };
+	XMFLOAT3 p3 = { x, -y,  -z };
+	XMFLOAT2 tl = { 0.0f, 0.0f };					// top-left
+	XMFLOAT2 tr = { 1.0f, 0.0f };					// top-right
+	XMFLOAT2 br = { 1.0f, 1.0f };					// bottom-right
+	XMFLOAT2 bl = { 0.0f, 1.0f };					// bottom-left
+
+	XMFLOAT2 t1 = { 0.0f, 0.0f };
+	XMFLOAT2 t2 = { 1.0f, 0.0f };
+	XMFLOAT2 t3 = { 0.0f, 1.0f };
+	vertices.reserve(vertices.size() + 36);
+
+	AddTriangle(p0, p1, p2, t1, t2, t3, color);	// -Z (back)
+	AddTriangle(p1, p2, p3, t2, t3, t2, color);
+	AddTriangle(p3, p2, p0, t2, t3, t1, color);
+	AddTriangle(p0, p1, p3, t1, t2, t2, color);
+	Optimize();
+}
+
+void cpu_mesh::CreateRectangle(float width, float height, float depth, XMFLOAT3 color)
+{
+	Clear();
+	const float x = width;
+	const float y = height;
+	const float z = depth;
+	XMFLOAT3 p0 = { -x, -y, -z };
+	XMFLOAT3 p1 = { x, -y, -z };
+	XMFLOAT3 p2 = { x,  y, -z };
+	XMFLOAT3 p3 = { -x,  y, -z };
+	XMFLOAT3 p4 = { -x, -y,  z };
+	XMFLOAT3 p5 = { x, -y,  z };
+	XMFLOAT3 p6 = { x,  y,  z };
+	XMFLOAT3 p7 = { -x,  y,  z };
+	XMFLOAT2 tl = { 0.0f, 0.0f };					// top-left
+	XMFLOAT2 tr = { 1.0f, 0.0f };					// top-right
+	XMFLOAT2 br = { 1.0f, 1.0f };					// bottom-right
+	XMFLOAT2 bl = { 0.0f, 1.0f };					// bottom-left
+	vertices.reserve(vertices.size() + 36);
+	AddFace(p0, p1, p2, p3, bl, br, tr, tl, color);	// -Z (back)
+	AddFace(p4, p7, p6, p5, bl, tl, tr, br, color);	// +Z (front)
+	AddFace(p1, p5, p6, p2, bl, br, tr, tl, color);	// +X (droite)
+	AddFace(p4, p0, p3, p7, bl, br, tr, tl, color);	// -X (gauche)
+	AddFace(p3, p2, p6, p7, bl, br, tr, tl, color);	// +Y (haut)
+	AddFace(p4, p5, p1, p0, bl, br, tr, tl, color);	// -Y (bas)
+	Optimize();
+}
+
 void cpu_mesh::CreateSkyBox(float halfSize, XMFLOAT3 color)
 {
 	Clear();
@@ -352,6 +464,35 @@ void cpu_mesh::CreateCylinder(float halfHeight, float radius, int count, bool to
 
 		angle += step;
 	}
+	Optimize();
+}
+
+void cpu_mesh::CreateAirPlane(float length, float radius, int count, bool top, bool bottom, XMFLOAT3 color)
+{
+	cpu_mesh m_meshCylinder;
+	m_meshCylinder.CreateCylinder(3,0.5,50);
+	XMMATRIX rotationCylindre = XMMatrixRotationZ(XM_PI*0.5);
+	m_meshCylinder.Transform(rotationCylindre);
+	AddMesh(m_meshCylinder);
+
+	cpu_mesh m_meshWing1;
+	m_meshWing1.CreateWingR(1.0, 0.15, 3);
+	XMMATRIX translationWing = XMMatrixTranslation(0.f, 0.f, 3.25);
+	m_meshWing1.Transform(translationWing);
+	AddMesh(m_meshWing1);
+
+	cpu_mesh m_meshWing2;
+	m_meshWing2.CreateWingL(1.0, 0.15, 3);
+	translationWing = XMMatrixTranslation(0.f, 0.f, -3.25);
+	m_meshWing2.Transform(translationWing);
+	AddMesh(m_meshWing2);
+
+
+
+
+
+
+
 	Optimize();
 }
 

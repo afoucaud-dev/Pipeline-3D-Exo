@@ -29,9 +29,13 @@ void App::ClearVector()
 	};
 }
 
-	int App::GenerateRandomNumber(int min, int max)
+float App::GenerateRandomNumber(float min, float max)
 {
-	return rand() % (max - min + 1) + min;
+	min *= 1000;
+	max *= 1000;
+	int resultresolution = rand() % ((int)max - (int)min + 1) + (int)min;
+	float result = resultresolution / 1000.0f;
+	return result;
 }
 
 bool App::Collision(cpu_entity* S1, cpu_entity* S2)
@@ -56,7 +60,7 @@ void App::SpawnLoot()
 	pLoot->pMesh = &m_meshLoot;
 	pLoot->pMaterial = &m_materialLoot;
 	pLoot->transform.SetYPR(0, XM_PI * 0.5, 0);
-	m_angleLastLoot = GenerateRandomNumber(0, 360);
+	m_angleLastLoot = GenerateRandomNumber(-XM_PI, XM_PI);
 	pLoot->transform.OrbitAroundAxis(rotation, CPU_VEC3_UP, 4, m_angleLastLoot);
 
 	m_pLoot.push_back(pLoot);
@@ -77,7 +81,7 @@ void App::OnStart()
 	m_pause = false;
 	m_loose = false;
 
-	m_hp = 3;
+	m_hp = 300000000;
 
 	m_score = 0;
 
@@ -91,8 +95,9 @@ void App::OnStart()
 	m_font.Create(cpuDevice.GetHeight() <= 512 ? 14 : 28);
 	m_fontB.Create(111);
 	m_fontL.Create(15);
-	m_meshPlateform.CreateCylinder(0.5f, 5, 50);
-	m_meshHero.CreateCube(0.5f);
+	//m_meshPlateform.CreateCylinder(3.0,1.0,50);
+	m_meshPlateform.CreateAirPlane();
+	m_meshHero.CreateCube(0.00005f);
 	m_meshLoot.CreateSphere(0.5f, 5, 50);
 
 

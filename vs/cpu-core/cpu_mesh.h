@@ -30,9 +30,14 @@ public:
 
 	void CreatePlane(float width = 1.0f, float height = 1.0f, XMFLOAT3 color = CPU_WHITE);
 	void CreateCube(float halfSize = 0.5f, XMFLOAT3 color = CPU_WHITE);
+	void CreateRamp(float width = 0.5f, float height = 0.5f, float depth = 0.5f, XMFLOAT3 color = CPU_WHITE);
+	void CreateWingR(float width = 0.5f, float height = 0.5f, float depth = 0.5f, XMFLOAT3 color = CPU_WHITE);
+	void CreateWingL(float width = 0.5f, float height = 0.5f, float depth = 0.5f, XMFLOAT3 color = CPU_WHITE);
+	void CreateRectangle(float width = 0.5f, float height = 0.5f, float depth = 0.5f, XMFLOAT3 color = CPU_WHITE);
 	void CreateSkyBox(float halfSize, XMFLOAT3 color = CPU_WHITE);
 	void CreateCircle(float radius = 0.5f, int count = 6, XMFLOAT3 color = CPU_WHITE);
 	void CreateCylinder(float halfHeight = 0.5f, float radius = 0.5f, int count = 6, bool top = true, bool bottom = true, XMFLOAT3 color = CPU_WHITE);
+	void CreateAirPlane(float halfHeight = 0.5f, float radius = 0.5f, int count = 6, bool top = true, bool bottom = true, XMFLOAT3 color = CPU_WHITE);
 	void CreateTube(float halfHeight = 0.5f, float radius = 0.5f, int count = 6, XMFLOAT3 color = CPU_WHITE);
 	void CreateSphere(float radius = 0.5f, int stacks = 5, int slices = 5, XMFLOAT3 color1 = CPU_WHITE, XMFLOAT3 color2 = CPU_WHITE);
 	void CreateSpaceship();
