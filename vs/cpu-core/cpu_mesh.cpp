@@ -469,26 +469,37 @@ void cpu_mesh::CreateCylinder(float halfHeight, float radius, int count, bool to
 
 void cpu_mesh::CreateAirPlane(float length, float radius, int count, bool top, bool bottom, XMFLOAT3 color)
 {
-	cpu_mesh m_meshCylinder;
-	m_meshCylinder.CreateCylinder(3,0.5,50);
+	cpu_mesh m_meshFuselage;
+	m_meshFuselage.CreateCylinder(4,0.5,50);
 	XMMATRIX rotationCylindre = XMMatrixRotationZ(XM_PI*0.5);
-	m_meshCylinder.Transform(rotationCylindre);
-	AddMesh(m_meshCylinder);
+	m_meshFuselage.Transform(rotationCylindre);
+	AddMesh(m_meshFuselage);
 
 	cpu_mesh m_meshWing1;
 	m_meshWing1.CreateWingR(1.0, 0.15, 3);
-	XMMATRIX translationWing = XMMatrixTranslation(0.f, 0.f, 3.25);
+	XMMATRIX translationWing = XMMatrixTranslation(0.f, 0.f, 3.5);
 	m_meshWing1.Transform(translationWing);
 	AddMesh(m_meshWing1);
 
 	cpu_mesh m_meshWing2;
 	m_meshWing2.CreateWingL(1.0, 0.15, 3);
-	translationWing = XMMatrixTranslation(0.f, 0.f, -3.25);
+	translationWing = XMMatrixTranslation(0.f, 0.f, -3.50);
 	m_meshWing2.Transform(translationWing);
 	AddMesh(m_meshWing2);
 
+	cpu_mesh m_meshReactor1;
+	m_meshReactor1.CreateCylinder(0.5, 0.20, 50);
+	m_meshReactor1.Transform(rotationCylindre);
+	XMMATRIX translationReactor = XMMatrixTranslation(0.f, -0.35f, 2.50);
+	m_meshReactor1.Transform(translationReactor);
+	AddMesh(m_meshReactor1);
 
-
+	cpu_mesh m_meshReactor2;
+	m_meshReactor2.CreateCylinder(0.5, 0.20, 50);
+	m_meshReactor2.Transform(rotationCylindre);
+	translationReactor = XMMatrixTranslation(0.f, -0.35f, -2.50);
+	m_meshReactor2.Transform(translationReactor);
+	AddMesh(m_meshReactor2);
 
 
 

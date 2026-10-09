@@ -3,6 +3,43 @@
 #include <fstream>
 #include <iostream>
 
+
+void App::UpdateCamera(float dt)
+{
+	const float rotSpeed = 2.0f;                 // radians par seconde
+	const float step = rotSpeed * dt;
+	const float maxPitch = XM_PIDIV2 - 0.05f;    // évite le retournement aux pôles
+
+	// Entrées
+	if (cpuInput.IsLeft())  m_camYaw += step;
+	if (cpuInput.IsRight()) m_camYaw -= step;
+	if (cpuInput.IsUp())    m_camPitch += step;
+	if (cpuInput.IsDown())  m_camPitch -= step;
+
+	m_camPitch = std::clamp(m_camPitch, -maxPitch, maxPitch);
+
+	// Point central : le héros (un seul point pour l'orbite ET le LookAt)
+	XMFLOAT3 target = {
+		m_pPlateform->transform.pos.x,
+		m_pPlateform->transform.pos.y + 1.0f,
+		m_pPlateform->transform.pos.z
+	};
+
+	// Position de la caméra en coordonnées sphériques
+	const float cp = cosf(m_camPitch);
+	XMFLOAT3 camPos = {
+		target.x + m_camDistance * cp * sinf(m_camYaw),
+		target.y + m_camDistance * sinf(m_camPitch),
+		target.z + m_camDistance * cp * cosf(m_camYaw)
+	};
+
+	// Application à la caméra
+	auto& camTransform = cpuEngine.GetCamera()->transform;
+	camTransform.pos = camPos;   // ou camTransform.SetPosition(camPos.x, camPos.y, camPos.z)
+	camTransform.LookAt(target.x, target.y, target.z);
+}
+
+
 App::App()
 {
 	s_pApp = this;
@@ -95,7 +132,6 @@ void App::OnStart()
 	m_font.Create(cpuDevice.GetHeight() <= 512 ? 14 : 28);
 	m_fontB.Create(111);
 	m_fontL.Create(15);
-	//m_meshPlateform.CreateCylinder(3.0,1.0,50);
 	m_meshPlateform.CreateAirPlane();
 	m_meshHero.CreateCube(0.00005f);
 	m_meshLoot.CreateSphere(0.5f, 5, 50);
@@ -157,9 +193,26 @@ void App::OnUpdate()
 	float dt = cpuTime.delta;
 	float time = cpuTime.total;
 
+
+
+
+
+
+
+	//new start
+
+	UpdateCamera(dt);
+
+
+	//new end
+
+
+
+
+
 	XMFLOAT3 rotationHero = { m_pPlateform->transform.pos.x, m_pPlateform->transform.pos.y + 1.0f, m_pPlateform->transform.pos.z };
 	XMFLOAT3 rotationCam = { m_pPlateform->transform.pos.x, m_pPlateform->transform.pos.y + 10.0f, m_pPlateform->transform.pos.z };
-	if (cpuInput.IsLeft())
+	/*if (cpuInput.IsLeft())
 	{
 		m_angleHero += dt;
 		m_pHero->transform.OrbitAroundAxis(rotationHero, CPU_VEC3_UP, 4, 3 * m_angleHero);
@@ -174,7 +227,8 @@ void App::OnUpdate()
 		m_pHero->transform.LookAt(rotationHero.x, rotationHero.y, rotationHero.z);
 		cpuEngine.GetCamera()->transform.OrbitAroundAxis(rotationCam, CPU_VEC3_UP, 15, 3 * m_angleHero);
 		cpuEngine.GetCamera()->transform.LookAt(rotationHero.x, rotationHero.y, rotationHero.z);
-	}
+	}*/
+
 
 
 	//Camera

@@ -23,6 +23,10 @@ public:
 
 	static void MyPixelShader(cpu_ps_io& io);
 
+	//new start
+	void UpdateCamera(float dt);
+	//new end
+
 private:
 	inline static App* s_pApp = nullptr;
 	cpu_mesh m_meshPlateform;
@@ -45,6 +49,14 @@ private:
 	float m_timerLootMax;
 	float m_angleHero;
 	float m_angleLastLoot;
+
+
+	//new start
+	float m_camYaw = 0.0f;   // rotation horizontale (radians)
+	float m_camPitch = 0.5f;   // rotation verticale (radians)
+	float m_camDistance = 15.0f;
+	//new end
+
 
 	bool m_loose;
 	bool m_pause;
